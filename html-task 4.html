@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .form-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  h1 {
+    text-align: left;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  input[type="submit"], input[type="reset"] {
+    padding: 8px 16px;
+    margin-right: 10px;
+  }
+</style>
+<script>
+function formValidation() {
+  var uid = document.registration.userid.value;
+  var passid = document.registration.passid.value;
+  var Repassid = document.registration.Repassid.value;
+  var uname = document.registration.username.value;
+  var age = document.registration.zip.value;
+
+  if (
+    userid_validation(uid) &&
+    passid_validation(passid) &&
+    Repassid_validation(passid, Repassid) &&
+    name_validation(uname) &&
+    age_validation(age)
+  ) {
+    alert("Validation successful! The form will be submitted.");
+    return true; // Allow form submission
+  } else {
+    return false; // Prevent form submission
+  }
+}
+
+function userid_validation(uid) {
+  var len = uid.length;
+  if (len === 0 || len < 5 || len > 12) {
+    alert("User Id should not be empty / length be between 5 to 12");
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function passid_validation(passid) {
+  var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+  if (passid.match(reg)) {
+    return true;
+  } else {
+    alert('Invalid Password...!');
+    return false;
+  }
+}
+
+function Repassid_validation(passid, Repassid) {
+  if (passid === Repassid) {
+    return true;
+  } else {
+    alert('Passwords do not match...!');
+    return false;
+  }
+}
+
+function name_validation(uname) {
+  var reg = /^[A-Za-z]+$/;
+  if (uname.match(reg)) {
+    return true;
+  } else {
+    alert('Username must have alphabet characters only');
+    return false;
+  }
+}
+
+function age_validation(age) {
+  var reg = /^\d{2}$/;
+  if (age.match(reg)) {
+    return true;
+  } else {
+    alert("Invalid Age");
+    return false;
+  }
+}
+</script>
+</head>
+<body>
+  <div class="form-container">
+    <form name="registration" onsubmit="return formValidation();">
+      <table>
+        <tr>
+          <th>Full Name:</th>
+          <td><input type="text" name="username"></td>
+        </tr>
+        <tr>
+          <th>User Name:</th>
+          <td><input type="text" name="userid"></td>
+        </tr>
+        <tr>
+          <th>Password:</th>
+          <td><input type="password" name="passid"></td>
+        </tr>
+        <tr>
+          <th>Re Password:</th>
+          <td><input type="password" name="Repassid"></td>
+        </tr>
+        <tr>
+          <th>Address:</th>
+          <td><input type="text" name="Address"></td>
+        </tr>
+        <tr>
+          <th>Age:</th>
+          <td><input type="text" name="zip"></td>
+        </tr>
+        <tr>
+          <th>Gender:</th>
+          <td>
+            <select id="sex" name="sex" class="form-input" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <input type="submit" name="submit" value="Save">
+    </form>
+  </div>
+</body>
+</html>
